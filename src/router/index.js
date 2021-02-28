@@ -92,6 +92,36 @@ export const constantRouterMap = [
     ]
   },
 
+    //指南管理
+    {
+      path: '/guide',
+      component: Layout,
+      redirect: '/guide/list',
+      name: '指南管理',
+      meta: { title: '指南管理', icon: 'example' },
+      children: [
+        {
+          path: 'list',
+          name: '指南列表',
+          component: () => import('@/views/guide/list'),
+          meta: { title: '指南列表', icon: 'table' }
+        },{
+          path: 'form',
+          name: '添加指南',
+          component: () => import('@/views/guide/form'),
+          meta: { title: '添加问题组', icon: 'tree' },
+          hidden: true
+        },
+        {
+          path: 'form/:id',   
+          name: '编辑指南',
+          component: () => import('@/views/guide/form'),
+          meta: { title: '编辑指南', noCache: true },
+          hidden: true
+        },
+      ]
+    },
+
   //用户反馈
   {
     path: '/feedback',

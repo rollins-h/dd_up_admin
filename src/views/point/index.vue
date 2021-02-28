@@ -34,12 +34,12 @@
             </el-table-column>
             <el-table-column
                 prop="pointValue"
-                label="积分值">
+                label="积分值"
+                width="120">
             </el-table-column>
             <el-table-column
                 prop="intro"
-                label="内容"
-                width="180">
+                label="内容">
             </el-table-column>
             <el-table-column
                 prop="createdAt"

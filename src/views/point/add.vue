@@ -31,7 +31,7 @@
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" size="small" @click="submitForm('form')">提交</el-button>
-                <el-button @click="resetForm('form')">重置</el-button>
+                <el-button size="small" @click="resetForm('form')">重置</el-button>
             </el-form-item>
         </el-form>
         </el-card>
@@ -52,6 +52,7 @@
             customers:[],
             value: '',
             options:[],
+            hasCustomerId:false,
             rules: {
                 customerId: [
                     { required: true, message: '请选择用户名称', trigger: 'change' }
@@ -70,6 +71,7 @@
             let customerId = this.$route.query.customerId
             if(customerId != undefined){
                 this.form.customerId = customerId;
+                this.hasCustomerId = true
             }
             this.getCustomers();
         },
@@ -98,6 +100,9 @@
                             message: '积分充值成功',
                             type: 'success'
                         });
+                        if(this.hasCustomerId){
+                            this.$router.push({path:'/customer/list'});
+                        }
                         this.resetForm("form")
                     }else{
                         this.$message.error('积分充值失败');
