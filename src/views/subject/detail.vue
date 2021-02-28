@@ -111,6 +111,7 @@
           </el-collapse-item>
         </el-collapse>
         <el-pagination
+          background
           :current-page="page"
           :page-size="limit"
           :total="total"

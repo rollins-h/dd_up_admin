@@ -72,6 +72,7 @@
     </el-table>
 
     <el-pagination
+      background
       :current-page="page"
       :page-size="limit"
       :total="total"
