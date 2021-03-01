@@ -26,14 +26,14 @@ export const constantRouterMap = [
   { path: '/404', component: () => import('@/views/404'), hidden: true },
 
   {
-    path: '/dashboard',
+    path: '/',
     component: Layout,
     redirect: '/dashboard',
-    name: '首页',
+    name: 'Dashboard',
     children: [{
       path: 'dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '首页' }
+      meta: { title: '首页', icon: 'dashboard' }
     }]
   },
 
@@ -48,7 +48,7 @@ export const constantRouterMap = [
         path: 'list',
         name: '题目组列表',
         component: () => import('@/views/subject/list'),
-        meta: { title: '题目组列表', icon: 'table' }
+        meta: { title: '题目组列表'}
       }
     ]
   },
@@ -59,13 +59,13 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/customer/list',
     name: '用户管理',
-    meta: { title: '用户管理', icon: 'example' },
+    meta: { title: '用户管理', icon: 'peoples' },
     children: [
       {
         path: 'list',
         name: '用户列表',
         component: () => import('@/views/customer/list'),
-        meta: { title: '用户列表', icon: 'table' }
+        meta: { title: '用户列表',icon: 'example' }
       }
     ]
   },
@@ -82,12 +82,12 @@ export const constantRouterMap = [
         path: 'index',
         name: '积分日志',
         component: () => import('@/views/point/index'),
-        meta: { title: '积分日志', icon: 'table' }
+        meta: { title: '积分日志' }
       },{
         path: 'add',
         name: '积分充值',
         component: () => import('@/views/point/add'),
-        meta: { title: '积分充值', icon: 'table' }
+        meta: { title: '积分充值'}
       }
     ]
   },
@@ -104,7 +104,7 @@ export const constantRouterMap = [
           path: 'list',
           name: '指南列表',
           component: () => import('@/views/guide/list'),
-          meta: { title: '指南列表', icon: 'table' }
+          meta: { title: '指南列表' }
         },{
           path: 'form',
           name: '添加指南',
@@ -189,6 +189,16 @@ export const constantRouterMap = [
         hidden: true
       },
     ]
+  },
+
+  {
+    path: '/login',
+    component: Layout,
+    redirect: '/login/index',
+    name: '',
+    meta: { title: '' },
+    hidden: true,
+    children: []
   },
 
   { path: '*', redirect: '/404', hidden: true }
