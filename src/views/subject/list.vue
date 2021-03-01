@@ -44,6 +44,11 @@
       </el-table-column>
 
       <el-table-column
+        prop="costPoints"
+        label="积分值">
+      </el-table-column>
+
+      <el-table-column
         prop="top"
         label="排序">
       </el-table-column>

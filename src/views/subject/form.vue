@@ -17,6 +17,9 @@
   <el-form-item label="答题时间（分钟）">
         <el-input-number v-model="subjectGroup.time" controls-position="right" min="0"/>
       </el-form-item>
+        <el-form-item label="积分值">
+        <el-input-number v-model="subjectGroup.costPoints" controls-position="right" min="0"/>
+      </el-form-item>
       <el-form-item label="分组排序">
         <el-input-number v-model="subjectGroup.top" controls-position="right" min="0"/>
       </el-form-item>
@@ -36,7 +39,9 @@ import subject from '@/api/subject/subject'
 export default {
     data(){
         return {
-            subjectGroup:{},
+            subjectGroup:{
+                costPoints:0
+            },
             saveBtnDisabled: false,
             BASE_API:process.env.BASE_API, //获取dev.env.js里面的地址
             enumList:[],
@@ -56,7 +61,9 @@ export default {
                 const id = this.$route.params.id;
                 this.getnfo(id)
             }else {
-                this.subjectGroup = {}
+                this.subjectGroup = {
+                    costPoints:0
+                }
             }
 
             subject.getEnumList()
