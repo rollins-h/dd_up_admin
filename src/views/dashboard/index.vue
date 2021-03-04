@@ -1,7 +1,8 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name:{{ name }}</div>
-    <div class="dashboard-text">roles:<span v-for="role in roles" :key="role">{{ role }}</span></div>
+    <h2>天天向上后台管理系统</h2>
+    <div class="dashboard-text">用户名:{{ name }}</div>
+    <div class="dashboard-text">密码:<span v-for="role in roles" :key="role">{{ role }}</span></div>
   </div>
 </template>
 
