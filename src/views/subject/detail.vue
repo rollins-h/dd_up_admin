@@ -1,8 +1,6 @@
 <template>
   <el-container>
     <el-header>
-      
-      
       <el-row :gutter="20">
         <el-col :span="12">{{ groupInfo.text }}</el-col>
         <el-col :span="6" :offset="6" class="return-btn"><el-button @click="previous" size="small">返回</el-button></el-col>
@@ -29,10 +27,13 @@
           <el-button size="small" type="primary" icon="el-icon-search" @click="getList()"
             >查询</el-button
           >
+          <el-button size="small" type="default" @click="clear()">清空</el-button>
           <router-link :to="{ path: '/question/form', query: { groupId: groupId}}">
             <el-button size="small" type="default">新增</el-button>
           </router-link>
-          <el-button size="small" type="default" @click="clear()">清空</el-button>
+          <router-link :to="{ path: '/question/batch', query: { groupId: groupId}}">
+            <el-button size="small" type="default">批量导入</el-button>
+          </router-link>
         </el-form>
 
         <el-row class="table-header">
@@ -136,7 +137,7 @@ export default {
       list: [],
       questionQuery: {},
       page: 1,
-      limit: 5,
+      limit: 10,
       total: 0, //总记录数
       typeList: [],
       demo: "<ul><li>123</li><li>456</li></ul>",

@@ -188,6 +188,13 @@ export const constantRouterMap = [
         meta: { title: '编辑题目', noCache: true },
         hidden: true
       },
+      {
+        path: 'batch',
+        name: '批量导入',
+        component: () => import('@/views/question/batch'),
+        meta: { title: '批量导入'},
+        hidden: true
+      }
     ]
   },
 
