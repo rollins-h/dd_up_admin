@@ -17,7 +17,7 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="题目类型">
-            <el-select
+            <el-select :disabled="isUpdate"
               clearable
               size="small"
               v-model="questionForm.typeId"
@@ -36,53 +36,81 @@
         </el-col>
       </el-row>
 
-      <el-row :gutter="10">
-        <el-form-item
-          v-for="(option, index) in questionForm.children"
-          :label="'选项' + (index + 1)"
-          :key="option.key"
-          :prop="'children.' + index + '.text'"
-        >
-          <el-col :span="10">
-            <el-input size="small" v-model="option.text"></el-input>
+      <div v-if="questionForm.typeId != 3">
+        <el-row :gutter="10">
+          <el-form-item
+            v-for="(option, index) in questionForm.children"
+            :label="'选项' + (index + 1)"
+            :key="option.key"
+            :prop="'children.' + index + '.text'"
+          >
+            <el-col :span="10">
+              <el-input size="small" v-model="option.text"></el-input>
+            </el-col>
+            <el-col :span="2">
+              <el-button v-if="!isUpdate" size="small" @click.prevent="removeOption(option)"
+                >删除</el-button
+              >
+            </el-col>
+          </el-form-item>
+        </el-row>
+
+        <el-row>
+          <el-col>
+            <el-form-item label="正确选项">
+                <el-checkbox-group v-if="questionForm.typeId == 2" v-model="questionForm.answer">
+                  <el-checkbox v-for="(item,index) in questionForm.children" :key="index" :label="item.text" name="answer"></el-checkbox>
+                </el-checkbox-group>
+                <el-radio-group v-if="questionForm.typeId == 1" v-model="questionForm.answer[0]">
+                  <el-radio v-for="(item,index) in questionForm.children" :key="index" :label="item.text"></el-radio>
+                </el-radio-group>
+            </el-form-item>
           </el-col>
-          <el-col :span="2">
-            <el-button v-if="!isUpdate" size="small" @click.prevent="removeOption(option)"
-              >删除</el-button
-            >
+        </el-row>
+
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="答案解析" prop="desc">
+              <el-input type="textarea" v-model="questionForm.parse"></el-input>
+            </el-form-item>
           </el-col>
+        </el-row>
+
+        <el-form-item>
+          <el-button size="small" type="primary" @click="submitForm('questionForm')"
+            >提交</el-button
+          >
+          <el-button v-if="!isUpdate" @click="addOption" size="small">添加选项</el-button>
+          <el-button @click="resetForm('questionForm')" size="small">重置</el-button>
+          <el-button @click="previous" size="small">返回</el-button>
         </el-form-item>
-      </el-row>
+      </div>
 
-      <el-row>
-        <el-col>
-          <el-form-item label="正确选项">
-              <el-checkbox-group v-if="questionForm.typeId == 2" v-model="questionForm.answer">
-                <el-checkbox v-for="(item,index) in questionForm.children" :key="index" :label="item.text" name="answer"></el-checkbox>
-              </el-checkbox-group>
-              <el-radio-group v-if="questionForm.typeId == 1" v-model="questionForm.answer[0]">
-                <el-radio v-for="(item,index) in questionForm.children" :key="index" :label="item.text"></el-radio>
-              </el-radio-group>
-          </el-form-item>
-        </el-col>
-      </el-row>
+      <div v-if="questionForm.typeId == 3">
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="答案" prop="desc">
+              <el-input type="textarea" v-model="questionForm.customData"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
 
-      <el-row>
-        <el-col :span="12">
-          <el-form-item label="答案解析" prop="desc">
-            <el-input type="textarea" v-model="questionForm.parse"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
+        <el-row>
+          <el-col :span="12">
+            <el-form-item label="答案解析" prop="desc">
+              <el-input type="textarea" v-model="questionForm.parse"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
 
-      <el-form-item>
-        <el-button size="small" type="primary" @click="submitForm('questionForm')"
-          >提交</el-button
-        >
-        <el-button v-if="!isUpdate" @click="addOption" size="small">添加选项</el-button>
-        <el-button @click="resetForm('questionForm')" size="small">重置</el-button>
-        <el-button @click="previous" size="small">返回</el-button>
-      </el-form-item>
+        <el-form-item>
+          <el-button size="small" type="primary" @click="submitForm('questionForm')"
+            >提交</el-button
+          >
+          <el-button @click="resetForm('questionForm')" size="small">重置</el-button>
+          <el-button @click="previous" size="small">返回</el-button>
+        </el-form-item>
+      </div>
     </el-form>
   </div>
 </template>
@@ -131,7 +159,6 @@ export default {
     getQuestionById() {
       question.getQuestionById(this.questionId).then((response) => {
         this.questionForm = response.data.item;
-        console.log(this.questionForm);
       });
     },
     getQuestionType() {
@@ -151,7 +178,6 @@ export default {
       });
     },
     updateQuestion(){
-      console.log("updateQuestion")
       question.updateQuestion(this.questionForm).then((response) => {
         this.$message({
           type: "success",
@@ -163,7 +189,6 @@ export default {
       });
     },
     addQuestion(){
-      console.log("addQuestion")
       question.addQuestion(this.questionForm).then((response) => {
         this.$message({
           type: "success",

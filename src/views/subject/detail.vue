@@ -80,7 +80,7 @@
                 <div>
                   <strong>{{ item.text }}</strong>
                 </div>
-                <div>
+                <div v-if="item.typeId != 3">
                   <ul>
                     <li v-for="(option, index1) in item.options" :key="index1">
                       {{ option }}
